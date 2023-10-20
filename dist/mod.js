@@ -11,7 +11,7 @@ function Proxy(originalModule, fn) {
             wrapped[key] = function (...args) {
                 ProxyOptions.Cancel = false;
                 // Call the proxy function
-                fn(ProxyOptions);
+                fn(ProxyOptions, key);
                 if (ProxyOptions.Cancel)
                     return;
                 // Call the original function

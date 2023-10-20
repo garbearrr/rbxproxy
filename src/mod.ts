@@ -1,4 +1,4 @@
-export function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, fn: (PO: ProxyOptions) => void): T {
+export function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, fn: (PO: ProxyOptions, funcName: string) => void): T {
     const ProxyOptions: ProxyOptions = {
         Cancel: false
     };
@@ -11,7 +11,7 @@ export function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, 
                 ProxyOptions.Cancel = false;
                 
                 // Call the proxy function
-                fn(ProxyOptions);
+                fn(ProxyOptions, key);
 
                 if (ProxyOptions.Cancel) return;
 

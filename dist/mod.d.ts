@@ -1,5 +1,5 @@
 /// <reference types="@rbxts/compiler-types" />
-export declare function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, fn: (PO: ProxyOptions) => void): T;
+export declare function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, fn: (PO: ProxyOptions, funcName: string) => void): T;
 type AnyFunction = (...args: any[]) => any;
 export type ProxyOptions = {
     /**
