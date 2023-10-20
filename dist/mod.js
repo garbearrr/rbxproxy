@@ -18,6 +18,10 @@ function Proxy(originalModule, fn) {
                 return originalModule[key](...args);
             };
         }
+        else {
+            // Copy over non-function properties
+            wrapped[key] = originalModule[key];
+        }
     }
     return wrapped;
 }

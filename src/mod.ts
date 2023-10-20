@@ -1,9 +1,9 @@
-export function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, fn: (PO: ProxyOptions, funcName: string) => void): T {
+export function Proxy<T>(originalModule: T, fn: (PO: ProxyOptions, funcName: string) => void): T {
     const ProxyOptions: ProxyOptions = {
         Cancel: false
     };
 
-    const wrapped: Record<string, AnyFunction> = {};
+    const wrapped: any = {};
 
     for (const key in originalModule) {
         if (typeof originalModule[key] === 'function') {
@@ -16,8 +16,11 @@ export function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, 
                 if (ProxyOptions.Cancel) return;
 
                 // Call the original function
-                return originalModule[key](...args);
+                return (originalModule[key] as AnyFunction)(...args);
             };
+        } else {
+            // Copy over non-function properties
+            wrapped[key] = originalModule[key];
         }
     }
 
