@@ -14,7 +14,7 @@ export function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, 
                 fn(ProxyOptions);
 
                 if (ProxyOptions.Cancel) return;
-                
+
                 // Call the original function
                 return originalModule[key](...args);
             };
@@ -26,7 +26,7 @@ export function Proxy<T extends Record<string, AnyFunction>>(originalModule: T, 
 
 type AnyFunction = (...args: any[]) => any;
 
-type ProxyOptions = {
+export type ProxyOptions = {
     /**
      * This can be toggled during the proxied function to cease the target function call from executing.
      */
