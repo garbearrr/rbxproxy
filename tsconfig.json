@@ -1,25 +1,26 @@
-
 {
-    "compilerOptions": {
-      "incremental": true,                       
-      "target": "ESNext",                           
-      "moduleDetection": "force",                    
-      "module": "commonjs",                          
-      "typeRoots": ["node_modules/@rbxts"],            
-      "declaration": true,                              
-      "esModuleInterop": true,                            
-      "forceConsistentCasingInFileNames": true,            
-      "strict": true,                                     
-      "skipLibCheck": true,
-      
-      "allowSyntheticDefaultImports": true,
-          "downlevelIteration": true,
-          "jsx": "react",
-          "jsxFactory": "Roact.createElement",
-          "jsxFragmentFactory": "Roact.createFragment",
-          "moduleResolution": "Node",
-          "resolveJsonModule": true,
-          "experimentalDecorators": true,
-      "outDir": "dist"
-    }
+  "compilerOptions": {
+    "incremental": true,                       
+    "target": "ESNext",                           
+    "moduleDetection": "force",                    
+    "module": "commonjs",                          
+    "typeRoots": ["node_modules/@rbxts", "node_modules/@rbxgar"],          
+    "declaration": true,                              
+    "esModuleInterop": true,                            
+    "forceConsistentCasingInFileNames": true,            
+    "strict": true,                                     
+    "skipLibCheck": true,
+    "noLib": true,
+    
+    "allowSyntheticDefaultImports": true,
+        "downlevelIteration": true,
+        "jsx": "react",
+        "jsxFactory": "Roact.createElement",
+        "jsxFragmentFactory": "Roact.createFragment",
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "experimentalDecorators": true,
+    "outDir": "dist",
+    "rootDir": "src"
+  }
 }  

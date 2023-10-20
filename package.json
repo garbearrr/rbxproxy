@@ -9,7 +9,7 @@
       "dist"
     ],
     "scripts": {
-      "build": "tsc"
+      "build": "tsc && rbxtsc"
     },
     "repository": {
       "type": "git",

@@ -1,31 +1,34 @@
-export function Proxy<T>(originalModule: T, fn: (PO: ProxyOptions, funcName: string) => void): T {
+export function Proxy<T extends object>(originalModule: T, fn: (PO: ProxyOptions) => void): T {
     const ProxyOptions: ProxyOptions = {
         Cancel: false
     };
 
     const wrapped: any = {};
 
-    for (const key in originalModule) {
-        if (typeof originalModule[key] === 'function') {
-            wrapped[key] = function(...args: any[]): any {
+    // Iterate using pairs() for object keys and values in Roblox-TS
+    for (const [key, value] of pairs(originalModule)) {
+        const strKey = key as string;
+        if (typeOf(value) === 'function') {
+            wrapped[strKey] = function(...args: unknown[]): any {
                 ProxyOptions.Cancel = false;
                 
                 // Call the proxy function
-                fn(ProxyOptions, key);
-
+                fn(ProxyOptions);
+    
                 if (ProxyOptions.Cancel) return;
-
+    
                 // Call the original function
-                return (originalModule[key] as AnyFunction)(...args);
+                return (value as AnyFunction)(...args);
             };
         } else {
             // Copy over non-function properties
-            wrapped[key] = originalModule[key];
+            wrapped[strKey] = value;
         }
     }
 
     return wrapped as T;
 }
+
 
 type AnyFunction = (...args: any[]) => any;
 
