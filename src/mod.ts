@@ -28,9 +28,10 @@ export function Proxy<T extends {}>(target: T, handler: ProxyHandler<T> = {}): T
         }
     });
 
-    const mod = { ...state, ...methods(state) }
+    // Create an empty proxy object and set its metatable
+    const proxyObject = setmetatable({} as T, meta) as T;
 
-    return setmetatable(mod, meta) as T;
+    return proxyObject;
 }
 
 export interface ProxyHandler<T extends {}> {

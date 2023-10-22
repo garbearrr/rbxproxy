@@ -37,15 +37,9 @@ local function Proxy(target, handler)
 			end,
 		}
 	end
-	local _object_1 = {}
-	for _k, _v in state do
-		_object_1[_k] = _v
-	end
-	for _k, _v in methods(state) do
-		_object_1[_k] = _v
-	end
-	local mod = _object_1
-	return setmetatable(mod, meta)
+	-- Create an empty proxy object and set its metatable
+	local proxyObject = setmetatable({}, meta)
+	return proxyObject
 end
 return {
 	Proxy = Proxy,
