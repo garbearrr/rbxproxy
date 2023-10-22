@@ -1,7 +1,5 @@
-export declare function Proxy<T extends object>(originalModule: T, fn: (PO: ProxyOptions) => void): T;
-export type ProxyOptions = {
-    /**
-     * This can be toggled during the proxied function to cease the target function call from executing.
-     */
-    Cancel: boolean;
-};
+export declare function Proxy<T extends {}>(target: T, handler?: ProxyHandler<T>): T;
+export interface ProxyHandler<T extends {}> {
+    get?: (obj: T, key: keyof T, accessor?: (key: keyof T) => T[keyof T]) => any;
+    set?: (obj: T, key: keyof T, value: any) => any;
+}

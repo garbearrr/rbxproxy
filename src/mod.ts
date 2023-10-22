@@ -1,40 +1,39 @@
-export function Proxy<T extends object>(originalModule: T, fn: (PO: ProxyOptions) => void): T {
-    const ProxyOptions: ProxyOptions = {
-        Cancel: false
+export function Proxy<T extends {}>(target: T, handler: ProxyHandler<T> = {}): T {
+    // State of the proxy
+    const state: T = { ...target };
+
+    // Metatable to override property accesses and modifications
+    const meta: LuaMetatable<T> = {
+        __index: (_self: T, key: unknown) => {
+            if (handler.get)
+                return handler.get(state, key as keyof T, (key: keyof T) => state[key as keyof T]);
+
+            return state[key as keyof T];
+        },
+        __newindex: (_self: T, key: unknown, value: unknown) => {
+            if (handler.set)
+                return handler.set(state, key as keyof T, value);
+
+            state[key as keyof T] = value as T[keyof T];
+        }
     };
 
-    const wrapped: any = {};
-
-    // Iterate using pairs() for object keys and values in Roblox-TS
-    for (const [key, value] of pairs(originalModule)) {
-        const strKey = key as string;
-        if (typeOf(value) === 'function') {
-            wrapped[strKey] = function(...args: unknown[]): any {
-                ProxyOptions.Cancel = false;
-                
-                // Call the proxy function
-                fn(ProxyOptions);
-    
-                if (ProxyOptions.Cancel) return;
-    
-                // Call the original function
-                return (value as AnyFunction)(...args);
-            };
-        } else {
-            // Copy over non-function properties
-            wrapped[strKey] = value;
+    // Methods to manipulate the state
+    const methods = (localState: T) => ({
+        set: function(key: keyof T, value: any) {
+            localState[key] = value;
+        },
+        get: function(key: keyof T) {
+            return localState[key];
         }
-    }
+    });
 
-    return wrapped as T;
+    const mod = { ...state, ...methods(state) }
+
+    return setmetatable(mod, meta) as T;
 }
 
-
-type AnyFunction = (...args: any[]) => any;
-
-export type ProxyOptions = {
-    /**
-     * This can be toggled during the proxied function to cease the target function call from executing.
-     */
-    Cancel: boolean;
+export interface ProxyHandler<T extends {}> {
+    get?: (obj: T, key: keyof T, accessor?: (key: keyof T) => T[keyof T]) => any;
+    set?: (obj: T, key: keyof T, value: any) => any;
 }
