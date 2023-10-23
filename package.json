@@ -3,14 +3,14 @@
     "name": "@rbxgar/proxy",
     "version": "1.0.0",
     "description": "",
-    "main": "dist/mod.js",
+    "main": "dist/mod.lua",
     "types": "dist/mod.d.ts",
     "files": [
       "dist"
     ],
     "scripts": {
-      "build": "tsc && rbxtsc && npm run postbuild",
-      "postbuild": "node C:\\Users\\sheer\\OneDrive\\Code\\Roblox\\Modules\\postBuild.js"
+      "build": "rbxtsc",
+      "buildwatch": "rbxtsc -w"
     },
     "repository": {
       "type": "git",
