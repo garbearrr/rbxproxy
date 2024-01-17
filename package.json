@@ -14,14 +14,14 @@
     },
     "repository": {
       "type": "git",
-      "url": "git+https://github.com/garbearrr/rbxproxy.git"
+      "url": "git+https://github.com/garbearrr/rbxtypes.git"
     },
     "author": "garbear",
     "license": "ISC",
     "bugs": {
-      "url": "https://github.com/garbearrr/rbxproxy/issues"
+      "url": "https://github.com/garbearrr/rbxtypes/issues"
     },
-    "homepage": "https://github.com/garbearrr/rbxproxy#readme",
+    "homepage": "https://github.com/garbearrr/rbxtypes#readme",
     "devDependencies": {
       "@rbxts/compiler-types": "^2.2.0-types.0",
       "@rbxts/types": "^1.0.721",
